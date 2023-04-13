@@ -1,0 +1,68 @@
+.wrapperLonelyNews {
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  background-color: rgb(196, 192, 192);
+  color: #fff;
+  padding: 10px;
+
+  .lonelyNews {
+    b {
+      color: rgb(99, 99, 99);
+      margin-right: 3px;
+    }
+
+    .comments {
+      display: flex;
+
+      max-width: 75px;
+      &SvgWrapper {
+        min-width: 25px;
+        min-height: 25px;
+        border-radius: 16px;
+        color: #000;
+        cursor: pointer;
+
+        svg {
+          margin: 5px 3px 2px 7px;
+        }
+        .rotated {
+          rotate: 180deg;
+        }
+      }
+
+      &Childs {
+        margin-left: 15px;
+      }
+
+      &SvgWrapper:hover {
+        background-color: #1976d2;
+        color: #fff;
+        transition: 0.2s all ease;
+      }
+
+      &ResponseWrapper {
+        min-height: 25px;
+        padding: 0 8px 0 5px;
+
+        b:nth-child(2) {
+          padding-right: 5px;
+        }
+      }
+      &ResponseWrapper:hover {
+        background-color: #1976d2;
+        color: #fff;
+        transition: 0.2s all ease;
+        cursor: pointer;
+        border-radius: 16px;
+
+        b {
+          color: #fff;
+        }
+      }
+    }
+
+    b {
+      margin-left: 5px;
+    }
+  }
+}

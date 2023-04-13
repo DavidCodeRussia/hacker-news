@@ -10,16 +10,22 @@ export type TNews = {
   title: string;
   type: string;
   url: string;
+  text: string;
 };
 
 export const newsApiSlice = createApi({
   reducerPath: "newsApiSlice",
   baseQuery: fetchBaseQuery({ baseUrl: "https://hacker-news.firebaseio.com/v0/" }),
   endpoints: (builder) => ({
-    getNews: builder.query<TNews[], void>({
+    getNews: builder.query<number[], void>({
       query: () => `newstories.json`,
+    }),
+
+    getLonelyNews: builder.query<TNews, number | string | undefined | "">({
+      query: (id) => `item/${id}.json`,
+      keepUnusedDataFor: 60,
     }),
   }),
 });
 
-export const { useGetNewsQuery } = newsApiSlice;
+export const { useGetNewsQuery, useGetLonelyNewsQuery } = newsApiSlice;

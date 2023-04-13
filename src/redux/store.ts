@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/dist/query";
+// import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { useDispatch } from "react-redux";
 import { newsApiSlice } from "../API/apiSlice";
 import newsSlice from "./newsSlice";
@@ -12,9 +12,10 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(newsApiSlice.middleware),
 });
 
-setupListeners(store.dispatch);
+// setupListeners(store.dispatch);
 
 type FuncType = typeof store.getState;
+
 export type TRootState = ReturnType<FuncType>;
 type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;
