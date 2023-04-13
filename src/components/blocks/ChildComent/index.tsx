@@ -1,14 +1,25 @@
-import React from "react";
-import { useGetLonelyNewsQuery } from "../../../API/apiSlice";
-import { unixTimeConverter } from "../../../utils/unixTimeConverter";
+import React, { useEffect } from 'react';
+import { useGetLonelyNewsQuery } from '../../../API/apiSlice';
+import { unixTimeConverter } from '../../../utils/unixTimeConverter';
 
-import s from "./ChildComent.module.scss";
+import s from './ChildComent.module.scss';
 
-const ChildComent = ({ id, className }: { id: number; className: string }) => {
-  const { data } = useGetLonelyNewsQuery(id && id);
+const ChildComent = ({
+  id,
+  className,
+  isSuccess,
+}: {
+  id: number;
+  className: string;
+  isSuccess: boolean;
+}) => {
+  const { data, refetch } = useGetLonelyNewsQuery(id && id);
   //@ts-ignore
   const time = unixTimeConverter(data?.time);
-  console.log("данные комментария", data);
+
+  useEffect(() => {
+    refetch();
+  }, [isSuccess, refetch]);
 
   return (
     <>

@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useGetLonelyNewsQuery } from "../../../API/apiSlice";
-import { TNews } from "./types";
-import { unixTimeConverter } from "../../../utils/unixTimeConverter";
-import ChildComent from "../ChildComent";
-import s from "./LonelyNewsComponent.module.scss";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useGetLonelyNewsQuery } from '../../../API/apiSlice';
+import { TNews } from './types';
+import { unixTimeConverter } from '../../../utils/unixTimeConverter';
+import ChildComent from '../ChildComent';
+import Button from '@mui/material/Button';
+import s from './LonelyNewsComponent.module.scss';
 
 const LonelyNewsComponent = () => {
   const { id } = useParams();
-  const { data } = useGetLonelyNewsQuery(id && +id);
+  const { data, isSuccess, refetch } = useGetLonelyNewsQuery(id && +id);
   const [news, setNews] = useState<TNews>();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   //@ts-ignore
   let formattedTime = unixTimeConverter(news?.time);
 
@@ -19,58 +22,72 @@ const LonelyNewsComponent = () => {
     setNews(data);
   }, [data]);
 
+  const backToHomePage = () => {
+    navigate('/');
+  };
+
+  const reloadListOfComents = () => {
+    refetch();
+  };
+
   let countResponses: string | null = null;
   switch (news?.kids?.length) {
     case 1:
-      countResponses = "Ответ";
-      break;
-    case 2:
-      countResponses = "Ответа";
+      countResponses = 'Answer';
       break;
     default:
-      countResponses = "Ответов";
+      countResponses = 'Answers';
   }
 
   return (
     <>
+      <Button variant="contained" onClick={backToHomePage}>
+        Back to Home Page
+      </Button>
       {news && (
         <div className={s.wrapperLonelyNews}>
           <div className={s.lonelyNews}>
             <div>
-              <b>Ссылка на источник:</b>{" "}
+              <b>Link to source:</b>{' '}
               {news.url ? (
-                <a href={`${news.url}`} target={"_blank"}>
+                <a href={`${news.url}`} target={'_blank'}>
                   {news.url}
                 </a>
               ) : (
-                <span>Не указано</span>
+                <span>Not indicated</span>
               )}
             </div>
             <div>
-              <b>Заголовок: </b>
-              {news.title ? news.title : <span>Не указано</span>}
+              <b>Title: </b>
+              {news.title ? news.title : <span>Not indicated</span>}
             </div>
             <div>
-              <b>time:</b>
+              <b>Time:</b>
               <span>{formattedTime}</span>
             </div>
             <div>
-              <b>Автор:</b> {news.by}
+              <b>Author:</b> {news.by}
             </div>
             <div>
-              <b>Комментарий:</b> {news?.text ? news?.text : <span>Не указано</span>}
+              <b>Comment:</b> {news?.text ? news?.text : <span>Not indicated</span>}
             </div>
 
             {Array.isArray(news?.kids) && (
               <>
                 <div>
-                  <b>Кол-во комментариев:</b> {news?.kids?.length}
+                  <b>Count of Comments:</b> {news?.kids?.length}
+                </div>
+
+                <div className={s.wrapperForButton}>
+                  <Button variant="contained" onClick={reloadListOfComents}>
+                    Reload list of Comments
+                  </Button>
                 </div>
 
                 <div className={s.comments} onClick={() => setOpen((prev) => !prev)}>
                   <div className={s.commentsSvgWrapper}>
                     <svg
-                      className={open ? "" : s.rotated}
+                      className={open ? '' : s.rotated}
                       width="10"
                       height="6"
                       viewBox="0 0 10 6"
@@ -88,7 +105,9 @@ const LonelyNewsComponent = () => {
                   </div>
                 </div>
                 {open &&
-                  news.kids.map((item) => <ChildComent className={s.commentsChilds} id={item} />)}
+                  news.kids.map((item) => (
+                    <ChildComent className={s.commentsChilds} id={item} isSuccess={isSuccess} />
+                  ))}
               </>
             )}
           </div>

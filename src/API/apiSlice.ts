@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export type TNews = {
   by: string;
@@ -14,16 +14,16 @@ export type TNews = {
 };
 
 export const newsApiSlice = createApi({
-  reducerPath: "newsApiSlice",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://hacker-news.firebaseio.com/v0/" }),
+  reducerPath: 'newsApiSlice',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://hacker-news.firebaseio.com/v0/' }),
   endpoints: (builder) => ({
     getNews: builder.query<number[], void>({
-      query: () => `newstories.json`,
+      query: (mock) => `newstories.json${mock}`,
     }),
 
-    getLonelyNews: builder.query<TNews, number | string | undefined | "">({
+    getLonelyNews: builder.query<TNews, number | string | undefined | ''>({
       query: (id) => `item/${id}.json`,
-      keepUnusedDataFor: 60,
+      keepUnusedDataFor: 0,
     }),
   }),
 });

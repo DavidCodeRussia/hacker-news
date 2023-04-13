@@ -4,11 +4,16 @@
   background-color: rgb(196, 192, 192);
   color: #fff;
   padding: 10px;
+  margin-top: 10px;
 
   .lonelyNews {
     b {
       color: rgb(99, 99, 99);
       margin-right: 3px;
+    }
+
+    .wrapperForButton {
+      margin: 5px 0;
     }
 
     .comments {

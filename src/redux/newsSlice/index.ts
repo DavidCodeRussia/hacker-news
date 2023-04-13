@@ -1,13 +1,13 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
-import { TNewsSlice, TItems } from "./types";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
+import { TNewsSlice, TItems } from './types';
 
 const initialState: TNewsSlice = {
   items: [],
 };
 
 const newsSlice = createSlice({
-  name: "news",
+  name: 'news',
   initialState,
   reducers: {
     setNews: (state, action: PayloadAction<TItems[]>) => {

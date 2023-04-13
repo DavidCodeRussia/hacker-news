@@ -1,11 +1,11 @@
-import AppBar from "@mui/material/AppBar";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Outlet } from "react-router-dom";
+import AppBar from '@mui/material/AppBar';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Outlet } from 'react-router-dom';
 
 const theme = createTheme();
 
@@ -21,7 +21,7 @@ const Layout = () => {
       <main>
         <Box
           sx={{
-            bgcolor: "background.paper",
+            bgcolor: 'background.paper',
             pt: 8,
             pb: 6,
           }}>
@@ -32,17 +32,17 @@ const Layout = () => {
               align="center"
               color="text.primary"
               gutterBottom>
-              Новости хакеров
+              Hacker News
             </Typography>
           </Container>
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
-          <Outlet /> {/* компонент которым является child'ом этой Layout'а в react-router-dom */}
+          <Outlet /> {/* компонент которым является child'ом этого Layout'а в react-router-dom */}
         </Container>
       </main>
-      <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
+      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
-          Футер
+          Footer
         </Typography>
       </Box>
     </ThemeProvider>
