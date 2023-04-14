@@ -11,7 +11,7 @@ import s from "./LonelyNewsComponent.module.scss";
 const LonelyNewsComponent = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, isSuccess, refetch } = useGetLonelyNewsQuery(id && +id);
+  const { data, isLoading, isSuccess, refetch } = useGetLonelyNewsQuery(id && +id);
   const [news, setNews] = useState<TNews>();
   const [open, setOpen] = useState(false);
   const formattedTime = unixTimeConverter(news?.time);
