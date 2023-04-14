@@ -1,29 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useGetLonelyNewsQuery } from '../../../API/apiSlice';
-import { TNews } from './types';
-import { unixTimeConverter } from '../../../utils/unixTimeConverter';
-import ChildComent from '../ChildComent';
-import Button from '@mui/material/Button';
-import s from './LonelyNewsComponent.module.scss';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useGetLonelyNewsQuery } from "../../../API/apiSlice";
+import { TNews } from "./types";
+import { unixTimeConverter } from "../../../utils/unixTimeConverter";
+import ChildComent from "../ChildComent";
+import Button from "@mui/material/Button";
+import s from "./LonelyNewsComponent.module.scss";
 
 const LonelyNewsComponent = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data, isSuccess, refetch } = useGetLonelyNewsQuery(id && +id);
   const [news, setNews] = useState<TNews>();
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  //@ts-ignore
-  let formattedTime = unixTimeConverter(news?.time);
+  const formattedTime = unixTimeConverter(news?.time);
 
   useEffect(() => {
-    //@ts-ignore
     setNews(data);
   }, [data]);
 
   const backToHomePage = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const reloadListOfComents = () => {
@@ -33,10 +31,10 @@ const LonelyNewsComponent = () => {
   let countResponses: string | null = null;
   switch (news?.kids?.length) {
     case 1:
-      countResponses = 'Answer';
+      countResponses = "Answer";
       break;
     default:
-      countResponses = 'Answers';
+      countResponses = "Answers";
   }
 
   return (
@@ -48,9 +46,9 @@ const LonelyNewsComponent = () => {
         <div className={s.wrapperLonelyNews}>
           <div className={s.lonelyNews}>
             <div>
-              <b>Link to source:</b>{' '}
+              <b>Link to source:</b>{" "}
               {news.url ? (
-                <a href={`${news.url}`} target={'_blank'}>
+                <a href={`${news.url}`} target={"_blank"}>
                   {news.url}
                 </a>
               ) : (
@@ -87,7 +85,7 @@ const LonelyNewsComponent = () => {
                 <div className={s.comments} onClick={() => setOpen((prev) => !prev)}>
                   <div className={s.commentsSvgWrapper}>
                     <svg
-                      className={open ? '' : s.rotated}
+                      className={open ? "" : s.rotated}
                       width="10"
                       height="6"
                       viewBox="0 0 10 6"

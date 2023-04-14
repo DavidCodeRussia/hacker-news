@@ -1,17 +1,16 @@
-// @ts-nocheck
-import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { useGetNewsQuery } from '../../API/apiSlice';
-import { selectNews } from '../../redux/newsSlice/selectors';
-import { useAppDispatch } from '../../redux/store';
-import { setNews } from '../../redux/newsSlice';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import CardMainPage from '../../components/blocks/CardMainPage';
+import * as React from "react";
+import { useSelector } from "react-redux";
+import { useGetNewsQuery } from "../../API/apiSlice";
+import { selectNews } from "../../redux/newsSlice/selectors";
+import { useAppDispatch } from "../../redux/hooks";
+import { setNews } from "../../redux/newsSlice";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import CardMainPage from "../../components/blocks/CardMainPage";
 
 export default function HomePage() {
-  const { data, refetch } = useGetNewsQuery('', {
-    pollingInterval: 60000,
+  const { data, refetch } = useGetNewsQuery("", {
+    pollingInterval: 60000, // which equal to 60 sec
   });
   const dispatch = useAppDispatch();
   const [isShowNews, setShowNews] = React.useState(true);
@@ -32,7 +31,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div style={{ marginBottom: '15px' }}>
+      <div style={{ marginBottom: "15px" }}>
         <Button variant="contained" onClick={reloadNews}>
           update news
         </Button>
@@ -40,7 +39,7 @@ export default function HomePage() {
       <Grid container spacing={4}>
         {isShowNews &&
           news.map((card) => {
-            return <CardMainPage key={card.id} id={card.serialNumber} />;
+            return <CardMainPage key={card.id} serialNumber={card.serialNumber} />;
           })}
       </Grid>
     </>

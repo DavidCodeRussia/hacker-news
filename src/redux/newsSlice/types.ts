@@ -1,15 +1,8 @@
-export type TItems = {
-  by: string;
-  descendants: number;
+export type TItemsObj = {
   id: string;
-  kids: number[];
-  score: number;
-  time: Date;
-  title: string;
-  type: string;
-  url: string;
+  serialNumber: number;
 };
 
 export type TNewsSlice = {
-  items: TItems[];
+  items: TItemsObj[];
 };
